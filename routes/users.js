@@ -7,7 +7,7 @@ const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
 
 router.post('/signup', (req, res) => {
-  if (!checkBody(req.body, ['username', 'password'])) {
+  if (!checkBody(req.body, ['email','username', 'password'])) {
     res.json({ result: false, error: 'Champs vides ou manquants' });
     return;
   }
@@ -15,18 +15,21 @@ router.post('/signup', (req, res) => {
   User.findOne({ username: req.body.username }).then(data => {
     if (data === null) {
 
-  // The password is being hashed before being stored in the database
+  // The password is being hashed 10 times before being stored in the database
       const hash = bcrypt.hashSync(req.body.password, 10);
 
       const newUser = new User({
+        email: req.body.email,
         username: req.body.username,
         password: hash,
+
+  // the token is created with 32 random characters
         token: uid2(32),
         canBookmark: true,
       });
 
       newUser.save().then(newDoc => {
-        res.json({ result: true, token: newDoc.token });
+        res.json({ result: true, token: newDoc.token, message: 'Votre compte a bien été créé !' });
       });
     } else {
       // User already exists in database
