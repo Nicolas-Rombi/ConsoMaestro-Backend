@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 
 const recipesSchema = mongoose.Schema({
   product: [{ type: mongoose.Schema.Types.ObjectId, ref: 'product' }],
-  title: String,
+  title: {type: String, require: true},
   image: Number,
-  description: Number,
+  description: {type: String, require: true}
 });
 
 const Recipe = mongoose.model('recipes', recipesSchema);
