@@ -18,3 +18,5 @@ router.get('/:UPC', async (req, res) => {
     });
 }
 );
+
+export default router;
