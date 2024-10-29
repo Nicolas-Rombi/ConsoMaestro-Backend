@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const Product = require('../models/products');
 
-router.get('/:UPC', async (req, res) => {
+router.get('/:userId/:UPC', async (req, res) => {
  const UPC = req.params.UPC;
- const userId = req.user._id;
+ const userId = req.params.userId;
  console.log(UPC);
  await fetch (`https://world.openfoodfacts.org/api/v0/product/${UPC}.json`)
  
