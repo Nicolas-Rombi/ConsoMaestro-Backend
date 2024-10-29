@@ -15,7 +15,7 @@ router.post('/signup', (req, res) => {
   User.findOne({ username: req.body.username }).then(data => {
     if (data === null) {
 
-  // The password is being hashed 10 times before being stored in the database.
+  // The password is being hashed 10 times before being stored in the database
       const hash = bcrypt.hashSync(req.body.password, 10);
 
       const newUser = new User({
