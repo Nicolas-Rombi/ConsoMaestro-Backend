@@ -72,7 +72,8 @@ router.get('/profile', (req, res) => {
     .then(user => {
       if (!user) {
         return res.status(404).json({ result: false, error: 'User not found' });
-      }
+      } 
+      console.log();
       // Return the user data as JSON if found
       res.json({ result: true, user });
     })
