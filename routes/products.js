@@ -19,4 +19,11 @@ router.get('/:UPC', async (req, res) => {
 }
 );
 
+router.post('/:DLC', async (req, res) => {
+    const DLC = req.params.DLC;
+    Product.findOneAndUpdate({ upc: req.body.upc }, { dlc: DLC });
+    res.json({ result: true, message: 'DLC enregistrée !' });
+}
+);
+
 module.exports = router;
