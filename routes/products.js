@@ -27,8 +27,12 @@ router.get('/:userId/:UPC', async (req, res) => {
 );
 
 router.post('/:DLC', async (req, res) => {
+    const { upc, user } = req.body;
     const DLC = req.params.DLC;
-    Product.findOneAndUpdate({ upc: req.body.upc }, { dlc: DLC });
+    Product.findOneAndUpdate(
+        { upc: upc, user: user },
+        { dlc: DLC },
+        { new: true });
     res.json({ result: true, message: 'DLC enregistrée !' });
 }
 );
