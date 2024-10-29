@@ -47,10 +47,32 @@ router.post('/signin', (req, res) => {
   // The data entered by the user is compared to what's in the database
   User.findOne({ username: req.body.username }).then(data => {
     if (data && bcrypt.compareSync(req.body.password, data.password)) {
-      res.json({ result: true, token: data.token });
+      res.json({ result: true, token: data.token, message: 'Connexion réussie !' });
     } else {
       res.json({ result: false, error: 'Utilisateur introuvable ou mot de passe incorrect' });
     }
   });
+});
+
+
+// Route to get user profile information
+router.get('/profile', (req, res) => {
+  // Extract the token from the Authorization header
+  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+
+  // Check if token exists
+  if (!token) {
+    return res.status(401).json({ result: false, error: 'Token is required' });
+  }
+
+  User.findOne({ token })
+    .select('email username') 
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ result: false, error: 'User not found' });
+      }
+      // Return the user data as JSON if found
+      res.json({ result: true, user });
+    })
 });
 module.exports = router;
