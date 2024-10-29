@@ -4,6 +4,7 @@ const Product = require('../models/products');
 
 router.get('/:UPC', async (req, res) => {
  const UPC = req.params.UPC;
+ const userId = req.user.id;
  console.log(UPC);
  await fetch (`https://world.openfoodfacts.org/api/v0/product/${UPC}.json`)
  
@@ -13,6 +14,7 @@ router.get('/:UPC', async (req, res) => {
         name: data.product.product_name,
         image: data.product.image_url,
         upc: UPC,
+        user: userId,
     });
     newProduct.save().then(newDoc => {
         res.json({ result: true, message: 'Produit ajouté !' });
