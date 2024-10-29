@@ -59,6 +59,8 @@ router.post('/signin', (req, res) => {
 router.get('/profile', (req, res) => {
   // Extract the token from the Authorization header
   const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+  console.log(token);
+  
 
   // Check if token exists
   if (!token) {
