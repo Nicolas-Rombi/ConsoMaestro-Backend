@@ -29,12 +29,23 @@ router.get('/:userId/:UPC', async (req, res) => {
 router.post('/:DLC', async (req, res) => {
     const { upc, user } = req.body;
     const DLC = req.params.DLC;
-    Product.findOneAndUpdate(
-        { upc: upc, user: user },
-        { dlc: DLC },
-        { new: true });
-    res.json({ result: true, message: 'DLC enregistrée !' });
-}
-);
+
+    try {
+        const updatedProduct = await Product.findOneAndUpdate(
+            { upc: upc, user: user },
+            { dlc: DLC },
+            { new: true } // Cela retourne le document mis à jour
+        );
+
+        if (updatedProduct) {
+            res.json({ result: true, message: 'DLC enregistrée !' });
+        } else {
+            res.json({ result: false, message: 'Produit non trouvé ou non mis à jour.' });
+        }
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour de la DLC :", error);
+        res.status(500).json({ result: false, message: 'Erreur serveur lors de la mise à jour de la DLC.' });
+    }
+});
 
 module.exports = router;
