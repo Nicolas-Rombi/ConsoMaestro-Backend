@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Product = require('../models/products');
 
+
 router.get('/:userId/:UPC', async (req, res) => {
  const UPC = req.params.UPC;
  const userId = req.params.userId;
@@ -17,7 +18,7 @@ router.get('/:userId/:UPC', async (req, res) => {
         user: userId,
     });
     newProduct.save().then(newDoc => {
-        res.json({ result: true, message: 'Produit ajouté !' });
+        res.json({ result: true, message: 'Produit ajouté !',product: newDoc });
     });
     })
     .catch(error => {
@@ -27,13 +28,13 @@ router.get('/:userId/:UPC', async (req, res) => {
 );
 
 router.post('/:DLC', async (req, res) => {
-    const { upc, user } = req.body;
+    const { upc, user, storagePlace } = req.body;
     const DLC = req.params.DLC;
 
     try {
         const updatedProduct = await Product.findOneAndUpdate(
             { upc: upc, user: user },
-            { dlc: DLC },
+            { dlc: DLC,  storagePlace: storagePlace },
             { new: true } // Cela retourne le document mis à jour
         );
 
