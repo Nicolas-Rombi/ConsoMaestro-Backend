@@ -18,7 +18,7 @@ router.get('/:userId/:UPC', async (req, res) => {
         user: userId,
     });
     newProduct.save().then(newDoc => {
-        res.json({ result: true, message: 'Produit ajouté !' });
+        res.json({ result: true, message: 'Produit ajouté !',product: newDoc });
     });
     })
     .catch(error => {
