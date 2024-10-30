@@ -88,15 +88,15 @@ router.put('/update', authMiddleware, async (req, res) => {
     const userId = req.user.id;
     const { email, username } = req.body; // Extracts the email and username from the request body
 
-    // Check the email and username
-    if (!email || !username) {
-      return res.status(400).json({ message: 'Email et nom d’utilisateur requis' });
-    }
+     // Build an update object based on what fields are present in the request
+     const updateFields = {};
+     if (email) updateFields.email = email;
+     if (username) updateFields.username = username;
 
     // Update the user email and username
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { email, username },
+      { $set: updateFields },
       { new: true, runValidators: true } // Returns the user with the updated email and username
     );
 
