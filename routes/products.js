@@ -28,7 +28,7 @@ router.get('/:userId/:UPC', async (req, res) => {
 );
 
 router.post('/:DLC', async (req, res) => {
-    const { upc, user } = req.body;
+    const { upc, user, storagePlace } = req.body;
     const DLC = req.params.DLC;
 
     try {
