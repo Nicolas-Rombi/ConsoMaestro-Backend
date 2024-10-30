@@ -39,7 +39,7 @@ router.post('/:DLC', async (req, res) => {
         );
 
         if (updatedProduct) {
-            res.json({ result: true, message: 'DLC enregistrée !' });
+            res.json({ result: true, message: 'Produit enregistrée !' });
         } else {
             res.json({ result: false, message: 'Produit non trouvé ou non mis à jour.' });
         }
