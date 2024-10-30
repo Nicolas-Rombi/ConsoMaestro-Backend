@@ -78,4 +78,45 @@ router.get('/profile', (req, res) => {
       res.json({ result: true, user });
     })
 });
+
+
+// route to update users' email and username
+
+router.put('/update', authMiddleware, async (req, res) => {
+  try {
+    // AuthMiddleware checks that the user is authenticated and then extracts the user ID from the request
+    const userId = req.user.id;
+    const { email, username } = req.body; // Extracts the email and username from the request body
+
+    // Check the email and username
+    if (!email || !username) {
+      return res.status(400).json({ message: 'Email et nom d’utilisateur requis' });
+    }
+
+    // Update the user email and username
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { email, username },
+      { new: true, runValidators: true } // Returns the user with the updated email and username
+    );
+
+    // Check if the user was updated
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+
+    // Returns the updated user data
+    res.json({
+      message: 'Informations mises à jour avec succès',
+      user: {
+        email: updatedUser.email,
+        username: updatedUser.username,
+      },
+    });
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour de l’utilisateur :', error);
+    res.status(500).json({ message: "Erreur du serveur lors de la mise à jour de l'utilisateur" });
+  }
+});
+
 module.exports = router;
