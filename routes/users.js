@@ -5,6 +5,7 @@ const User = require('../models/users');
 const { checkBody } = require('../modules/checkBody');
 const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/signup', (req, res) => {
   if (!checkBody(req.body, ['email','username', 'password'])) {
