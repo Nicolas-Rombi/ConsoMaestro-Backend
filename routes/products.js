@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Product = require('../models/products');
 
+
 router.get('/:userId/:UPC', async (req, res) => {
  const UPC = req.params.UPC;
  const userId = req.params.userId;
@@ -33,7 +34,7 @@ router.post('/:DLC', async (req, res) => {
     try {
         const updatedProduct = await Product.findOneAndUpdate(
             { upc: upc, user: user },
-            { dlc: DLC },
+            { dlc: DLC,  storagePlace: storagePlace },
             { new: true } // Cela retourne le document mis à jour
         );
 

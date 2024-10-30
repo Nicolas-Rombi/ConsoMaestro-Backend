@@ -7,7 +7,8 @@ const productSchema = mongoose.Schema({
   image: String,
   dlc: Date,
   dgccrf: [String],
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  storagePlace: String,
 });
 
 const Product = mongoose.model('products', productSchema);
