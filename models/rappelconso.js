@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const RappelConsoSchema = new mongoose.Schema({
+const rappelconsoSchema = new mongoose.Schema({
   categorie_de_produit: String,
   nom_de_la_marque_du_produit: String,
   noms_des_modeles_ou_references: String,
@@ -14,6 +14,6 @@ const RappelConsoSchema = new mongoose.Schema({
   date_debut_fin_de_commercialisation: Date,
 }, { timestamps: true });
 
-const RappelConso = mongoose.model('RappelConso', RappelConsoSchema);
+const RappelConso = mongoose.model('RappelConso', rappelconsoSchema);
 
-module.exports = RappelConso;
+module.exports = RappelConso; 
