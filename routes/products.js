@@ -28,12 +28,12 @@ router.get('/:userId/:UPC', async (req, res) => {
 );
 
 router.post('/:DLC', async (req, res) => {
-    const { upc, user, storagePlace } = req.body;
+    const { _id, storagePlace } = req.body;
     const DLC = req.params.DLC;
 
     try {
         const updatedProduct = await Product.findOneAndUpdate(
-            { upc: upc, user: user },
+            {_id},
             { dlc: DLC,  storagePlace: storagePlace },
             { new: true } // Cela retourne le document mis à jour
         );
