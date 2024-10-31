@@ -21,7 +21,7 @@ router.get('/fetch-recalls', async (req, res) => {
         // Boucle pour récupérer tous les rappels alimentaires
         do {
             // Construction de l'URL
-            const response = await fetch(`https://data.economie.gouv.fr/api/v2/catalog/datasets/rappelconso0/records?where=categorie_de_produit="Alimentation"&limit=${limit}&offset=${offset}`);
+            const response = await fetch(`https://data.economie.gouv.fr/api/v2/catalog/datasets/rappelconso0/records?where=categorie_de_produit="Alimentation"&limit=100`);
             const data = await response.json();
 
             if (data && data.records) {
