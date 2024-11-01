@@ -53,7 +53,7 @@ router.get('/Frigo/:userId', async (req, res) => {
     const userId = req.params.userId;
     
     try {
-        const products = await Product.find({ user: userId, storagePlace: "Frigo" }); // Rechercher les produits liés à l'utilisateur
+        const products = await Product.find({ user: userId, storagePlace:"Frigo" }); // Rechercher les produits liés à l'utilisateur
         if (products) {
             res.json({ result: true, data: products });
         } else {
@@ -69,7 +69,7 @@ router.get('/Congelo/:userId', async (req, res) => {
     const userId = req.params.userId;
     
     try {
-        const products = await Product.find({ user: userId, storagePlace: "Congelo" }); // Rechercher les produits liés à l'utilisateur
+        const products = await Product.find({ user: userId, storagePlace:"Congelo" }); // Rechercher les produits liés à l'utilisateur
         if (products) {
             res.json({ result: true, data: products });
         } else {
@@ -85,7 +85,7 @@ router.get('/Placard/:userId', async (req, res) => {
     const userId = req.params.userId;
     
     try {
-        const products = await Product.find({ user: userId, storagePlace: "Placard" }); // Rechercher les produits liés à l'utilisateur
+        const products = await Product.find({ user: userId, storagePlace:"Placard" }); // Rechercher les produits liés à l'utilisateur
         if (products) {
             res.json({ result: true, data: products });
         } else {
