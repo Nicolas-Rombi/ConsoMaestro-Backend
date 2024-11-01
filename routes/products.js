@@ -49,7 +49,7 @@ router.post('/:DLC', async (req, res) => {
     }
 });
 
-router.get('/products/:userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
     
     try {
