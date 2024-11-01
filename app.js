@@ -11,6 +11,9 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var advicesRouter = require('./routes/advices');
 var rappelConsoRouter = require('./routes/rappelconso'); 
+var frigoRouter = require('./routes/frigo');
+var congeloRouter = require('./routes/congelo');
+var placardRouter = require('./routes/placard');
 
 var app = express();
 
@@ -27,5 +30,8 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/advices', advicesRouter);
 app.use('/rappels', rappelConsoRouter);
+app.use('/frigo', frigoRouter);
+app.use('/congelo', congeloRouter);
+app.use('/placard', placardRouter);
 
 module.exports = app;
