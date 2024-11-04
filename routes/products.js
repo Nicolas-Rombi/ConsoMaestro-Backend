@@ -22,7 +22,7 @@ router.get('/:userId/:UPC', async (req, res) => {
     });
     })
     .catch(error => {
-        res.json({ result: false, error });
+        res.json({ result: false, message: "Ce produit n'est malheuresement pas encore disponible.", error });
     });
 }
 );
