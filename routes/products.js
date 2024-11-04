@@ -22,7 +22,7 @@ router.get('/:userId/:UPC', async (req, res) => {
     });
     })
     .catch(error => {
-        res.json({ result: false, message: "Ce produit n'est malheuresement pas encore disponible.", error });
+        res.json({ result: false, message: "Ce produit n'est pas disponible.", error });
     });
 }
 );
@@ -39,7 +39,7 @@ router.post('/:DLC', async (req, res) => {
         );
 
         if (updatedProduct) {
-            res.json({ result: true, message: 'Produit enregistrée !' });
+            res.json({ result: true, message: 'Produit enregistré !' });
         } else {
             res.json({ result: false, message: 'Produit non trouvé ou non mis à jour.' });
         }
