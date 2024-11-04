@@ -22,7 +22,7 @@ router.get('/:userId/:UPC', async (req, res) => {
     });
     })
     .catch(error => {
-        res.json({ result: false, error });
+        res.json({ result: false, message: "Ce produit n'est malheuresement pas encore disponible.", error });
     });
 }
 );
@@ -49,4 +49,51 @@ router.post('/:DLC', async (req, res) => {
     }
 });
 
+router.get('/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    
+    try {
+        const products = await Product.find({ user: userId, storagePlace:"Frigo" }); // Rechercher les produits liés à l'utilisateur
+        if (products) {
+            res.json({ result: true, data: products });
+        } else {
+            res.json({ result: false, message: 'Aucun produit trouvé pour cet utilisateur.' });
+        }
+    } catch (error) {
+        console.error("Erreur lors de la récupération des produits :", error);
+        res.status(500).json({ result: false, message: 'Erreur serveur lors de la récupération des produits.' });
+    }
+});
+
+router.get('/Congelo/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    
+    try {
+        const products = await Product.find({ user: userId, storagePlace:"Congelo" }); // Rechercher les produits liés à l'utilisateur
+        if (products) {
+            res.json({ result: true, data: products });
+        } else {
+            res.json({ result: false, message: 'Aucun produit trouvé pour cet utilisateur.' });
+        }
+    } catch (error) {
+        console.error("Erreur lors de la récupération des produits :", error);
+        res.status(500).json({ result: false, message: 'Erreur serveur lors de la récupération des produits.' });
+    }
+});
+
+router.get('/Placard/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    
+    try {
+        const products = await Product.find({ user: userId, storagePlace:"Placard" }); // Rechercher les produits liés à l'utilisateur
+        if (products) {
+            res.json({ result: true, data: products });
+        } else {
+            res.json({ result: false, message: 'Aucun produit trouvé pour cet utilisateur.' });
+        }
+    } catch (error) {
+        console.error("Erreur lors de la récupération des produits :", error);
+        res.status(500).json({ result: false, message: 'Erreur serveur lors de la récupération des produits.' });
+    }
+});
 module.exports = router;

@@ -11,7 +11,7 @@ router.post('/signup', (req, res) => {
     res.json({ result: false, error: 'Champs vides ou manquants' });
     return;
   }
-  // Check if the user has not already been registered
+  // Check if the user has not already been registered.
   User.findOne({ username: req.body.username }).then(data => {
     if (data === null) {
 
