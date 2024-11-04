@@ -1,3 +1,9 @@
+const express = require('express');
+const router = express.Router();
+const RappelConso = require('../models/rappelconso'); 
+const Product = require('../models/products'); 
+
+// Route pour récupérer et enregistrer les rappels
 router.get('/fetch-recalls', (req, res) => {
     const apiUrl = `https://data.economie.gouv.fr/api/v2/catalog/datasets/rappelconso0/records?where=categorie_de_produit="Alimentation"&limit=100`;
 
@@ -36,10 +42,14 @@ router.get('/fetch-recalls', (req, res) => {
             } else {
                 res.json({ result: false, message: 'Aucun rappel trouvé dans la réponse API.' });
             }
+        })
+        .catch(error => {
+            console.error("Erreur lors de la récupération des rappels :", error);
+            res.json({ result: false, message: 'Erreur lors de la récupération des rappels.' });
         });
 });
 
-
+// Route pour vérifier les rappels dans les produits de l'utilisateur
 router.get('/check-recall/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
