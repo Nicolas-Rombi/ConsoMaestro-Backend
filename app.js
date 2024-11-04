@@ -34,4 +34,5 @@ app.use('/frigo', frigoRouter);
 app.use('/congelo', congeloRouter);
 app.use('/placard', placardRouter);
 
+
 module.exports = app;
