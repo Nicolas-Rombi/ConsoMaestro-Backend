@@ -83,11 +83,11 @@ router.delete('/:productId', async (req, res) => {
 
 router.put('/:productId', async (req, res) => {
     const productId = req.params.productId;
-    const {newStoragePlace } = req.body;
+    const newStoragePlace = req.body.newStoragePlace;
     
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
-            productId,
+            {_id: productId},
             { storagePlace: newStoragePlace },
             { new: true } // Cela retourne le document mis à jour
         );
