@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const rappelconsoSchema = new mongoose.Schema({
   categorie_de_produit: String,
   nom_de_la_marque_du_produit: String,
@@ -10,5 +12,7 @@ const rappelconsoSchema = new mongoose.Schema({
   description_complementaire_du_risque: String,
   conduites_a_tenir_par_le_consommateur: String,
 }, { timestamps: true });
+
+const RappelConso = mongoose.model('RappelConso', rappelconsoSchema);
 
 module.exports = RappelConso;
