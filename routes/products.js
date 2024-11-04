@@ -81,7 +81,7 @@ router.delete('/:productId', async (req, res) => {
     }
 });
 
-router.update('/:productId', async (req, res) => {
+router.put('/:productId', async (req, res) => {
     const productId = req.params.productId;
     const {newStoragePlace } = req.body;
     
