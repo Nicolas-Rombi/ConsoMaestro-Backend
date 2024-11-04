@@ -57,8 +57,21 @@ router.get('/check-recall/:userId', async (req, res) => {
         // Récupérer tous les produits de l'utilisateur
         const userProducts = await Product.find({ user: userId });
 
+         // Vérifier si userProducts est un tableau
+    if (!Array.isArray(userProducts)) {
+        console.error("userProducts n'est pas un tableau", userProducts);
+        return res.status(500).json({ result: false, message: 'Erreur lors de la récupération des produits.' });
+    }
+
         // Extraire les codes-barres des produits de l'utilisateur
-        const userUPCs = userProducts.map(product => product.upc);
+
+        const userUPCs = userProducts.map(product => {
+            if (!product.upc) {
+                console.warn("Produit sans UPC trouvé :", product);
+                return null; // ou gérer autrement
+            }
+            return product.upc;
+        }).filter(upc => upc !== null); // Filtrer les valeurs nulles si nécessaire
 
         // Rechercher les rappels dont les codes-barres correspondent aux produits de l'utilisateur
         const recalls = await RappelConso.find({ upc: { $in: userUPCs } });
