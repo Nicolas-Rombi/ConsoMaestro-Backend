@@ -14,7 +14,7 @@ var rappelConsoRouter = require('./routes/rappelconso');
 var frigoRouter = require('./routes/frigo');
 var congeloRouter = require('./routes/congelo');
 var placardRouter = require('./routes/placard');
-//var quickconsoRouter = require('./routes/quickconso');
+var quickconsoRouter = require('./routes/quickconso');
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.use('/rappels', rappelConsoRouter);
 app.use('/frigo', frigoRouter);
 app.use('/congelo', congeloRouter);
 app.use('/placard', placardRouter);
-//app.use('/quickconso', quickconsoRouter);
+app.use('/quickconso', quickconsoRouter);
 
 
 module.exports = app;
