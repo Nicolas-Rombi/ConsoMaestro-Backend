@@ -65,35 +65,46 @@ router.get('/:userId', async (req, res) => {
     }
 });
 
-router.get('/Congelo/:userId', async (req, res) => {
-    const userId = req.params.userId;
+router.delete('/:productId', async (req, res) => {
+    const productId = req.params.productId;
     
     try {
-        const products = await Product.find({ user: userId, storagePlace:"Congelo" }); // Rechercher les produits liés à l'utilisateur
-        if (products) {
-            res.json({ result: true, data: products });
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+        if (deletedProduct) {
+            res.json({ result: true, message: 'Produit supprimé !' });
         } else {
-            res.json({ result: false, message: 'Aucun produit trouvé pour cet utilisateur.' });
+            res.json({ result: false, message: 'Produit non trouvé ou non supprimé.' });
         }
     } catch (error) {
-        console.error("Erreur lors de la récupération des produits :", error);
-        res.status(500).json({ result: false, message: 'Erreur serveur lors de la récupération des produits.' });
+        console.error("Erreur lors de la suppression du produit :", error);
+        res.status(500).json({ result: false, message: 'Erreur serveur lors de la suppression du produit.' });
     }
 });
 
-router.get('/Placard/:userId', async (req, res) => {
-    const userId = req.params.userId;
+router.put('/:productId', async (req, res) => {
+    const productId = req.params.productId;
+    const {newStoragePlace } = req.body;
     
     try {
-        const products = await Product.find({ user: userId, storagePlace:"Placard" }); // Rechercher les produits liés à l'utilisateur
-        if (products) {
-            res.json({ result: true, data: products });
+        const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            { storagePlace: newStoragePlace },
+            { new: true } // Cela retourne le document mis à jour
+        );
+
+        if (updatedProduct) {
+            res.json({ result: true, message: 'Produit mis à jour !' });
         } else {
-            res.json({ result: false, message: 'Aucun produit trouvé pour cet utilisateur.' });
+            res.json({ result: false, message: 'Produit non trouvé ou non mis à jour.' });
         }
     } catch (error) {
-        console.error("Erreur lors de la récupération des produits :", error);
-        res.status(500).json({ result: false, message: 'Erreur serveur lors de la récupération des produits.' });
+        console.error("Erreur lors de la mise à jour du produit :", error);
+        res.status(500).json({ result: false, message: 'Erreur serveur lors de la mise à jour du produit.' });
     }
 });
+
+
+
+
+
 module.exports = router;
