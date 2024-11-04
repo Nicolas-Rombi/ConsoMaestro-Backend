@@ -10,3 +10,5 @@ const rappelconsoSchema = new mongoose.Schema({
   description_complementaire_du_risque: String,
   conduites_a_tenir_par_le_consommateur: String,
 }, { timestamps: true });
+
+module.exports = RappelConso;
