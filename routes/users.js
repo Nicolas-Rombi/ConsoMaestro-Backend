@@ -119,4 +119,24 @@ router.put('/update', authMiddleware, async (req, res) => {
   }
 });
 
+// route to delete user account
+
+router.delete('/delete', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id; // Récupération de l'ID de l'utilisateur depuis req.user
+
+    // Suppression de l'utilisateur dans la base de données
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    // Vérifie si l'utilisateur a été trouvé et supprimé
+    if (!deletedUser) {
+      return res.status(404).json({ success: false, message: 'Utilisateur non trouvé.' });
+    }
+
+    res.status(200).json({ success: true, message: 'Compte supprimé avec succès.' });
+  } catch (error) {
+    console.error('Erreur lors de la suppression du compte :', error);
+    res.status(500).json({ success: false, message: 'Erreur lors de la suppression du compte.' });
+  }
+});
 module.exports = router;
