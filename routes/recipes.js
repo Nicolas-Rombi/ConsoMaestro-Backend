@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Recipe = require('../models/recipes');
 
-app.post('/api/recipes', async (req, res) => {
+router.post('/api/recipes', async (req, res) => {
     const { userId, title, image, description, product } = req.body;
   
     try {
@@ -22,7 +22,7 @@ app.post('/api/recipes', async (req, res) => {
   });
   
   // Route pour supprimer une recette mise en favori
-  app.delete('/api/recipes/:id', async (req, res) => {
+  router.delete('/api/recipes/:id', async (req, res) => {
     const { id } = req.params;
   
     try {
