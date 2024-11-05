@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
-{/*  
+
 router.get('/', async (req, res) => {
     const apiKey = process.env.SPOONACULAR_API_KEY;
     const number = 4; // Valeur fixe pour le nombre de recettes
@@ -66,5 +66,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la suppression de la recette mise en favori' });
   }
 });
-*/} 
+
 module.exports = router;
