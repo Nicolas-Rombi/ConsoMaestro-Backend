@@ -33,7 +33,7 @@ router.get('/spoonacular', (req, res) => {
         res.status(500).json({ error: 'Erreur de réseau ou serveur lors de la récupération des recettes.' });
       });
   });
-*/
+
 // Route pour sauvegarder une recette en favori
 router.post('/', async (req, res) => {
   const { userId, title, image, description, product } = req.body;
@@ -66,5 +66,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la suppression de la recette mise en favori' });
   }
 });
-
+*/
 module.exports = router;
