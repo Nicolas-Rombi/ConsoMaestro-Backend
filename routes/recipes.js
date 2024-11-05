@@ -6,38 +6,32 @@ require('dotenv').config();
 
 
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
-router.get('/spoonacular', async (req, res) => {
-    const { number = 4 } = req.query;
+router.get('/spoonacular', (req, res) => {
     const apiKey = process.env.SPOONACULAR_API_KEY;
+    const number = 4; // Valeur fixe pour le nombre de recettes
   
-    try {
-      // Requête vers l'API Spoonacular
-      const response = await fetch(`https://api.spoonacular.com/recipes/random?number=${number}&apiKey=${apiKey}`);
-      
-      // Vérification du statut de la réponse
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Erreur API Spoonacular:', errorData);
-        
-        // Gérer les différents types d'erreurs
-        if (response.status === 401) {
-          return res.status(401).json({ error: 'Clé API Spoonacular invalide ou manquante.' });
-        } else if (response.status === 402) {
-          return res.status(402).json({ error: 'Limite de requêtes atteinte pour l\'API Spoonacular.' });
+    fetch(`https://api.spoonacular.com/recipes/random?number=${number}&apiKey=${apiKey}`)
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(errorData => {
+            console.error('Erreur API Spoonacular:', errorData);
+  
+            if (response.status === 401) {
+              res.status(401).json({ error: 'Clé API Spoonacular invalide ou manquante.' });
+            } else if (response.status === 402) {
+              res.status(402).json({ error: 'Limite de requêtes atteinte pour l\'API Spoonacular.' });
+            } else {
+              res.status(response.status).json({ error: 'Erreur lors de la récupération des recettes depuis Spoonacular.' });
+            }
+          });
         } else {
-          return res.status(response.status).json({ error: 'Erreur lors de la récupération des recettes depuis Spoonacular.' });
+          return response.json().then(data => res.status(200).json(data));
         }
-      }
-  
-      // Traitement des données si la réponse est valide
-      const data = await response.json();
-      res.status(200).json(data);
-  
-    } catch (error) {
-      // Gérer les erreurs réseau et autres exceptions
-      console.error('Erreur de réseau ou interne lors de la récupération des recettes:', error);
-      res.status(500).json({ error: 'Erreur de réseau ou serveur lors de la récupération des recettes.' });
-    }
+      })
+      .catch(error => {
+        console.error('Erreur de réseau ou interne lors de la récupération des recettes:', error);
+        res.status(500).json({ error: 'Erreur de réseau ou serveur lors de la récupération des recettes.' });
+      });
   });
 
 // Route pour sauvegarder une recette en favori
