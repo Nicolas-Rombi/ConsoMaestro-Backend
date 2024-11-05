@@ -4,7 +4,7 @@ const Recipe = require('../models/recipes');
 const fetch = require('node-fetch'); 
 require('dotenv').config();
 
-
+/*
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
 router.get('/spoonacular', (req, res) => {
     const { number = 5 } = req.query;
@@ -33,9 +33,8 @@ router.get('/spoonacular', (req, res) => {
         res.status(500).json({ error: 'Erreur de réseau ou serveur lors de la récupération des recettes.' });
       });
   });
-
+*/
 // Route pour sauvegarder une recette en favori
-{/* 
 router.post('/', async (req, res) => {
   const { userId, title, image, description, product } = req.body;
 
@@ -53,9 +52,10 @@ router.post('/', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Erreur lors de la sauvegarde de la recette mise en favori' });
   }
-}); */}
+});
 
 // Route pour supprimer une recette mise en favori
+ 
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -66,4 +66,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la suppression de la recette mise en favori' });
   }
 });
+
 module.exports = router;
