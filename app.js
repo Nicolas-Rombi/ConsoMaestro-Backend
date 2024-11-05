@@ -15,7 +15,7 @@ var frigoRouter = require('./routes/frigo');
 var congeloRouter = require('./routes/congelo');
 var placardRouter = require('./routes/placard');
 var quickconsoRouter = require('./routes/quickconso');
-{/*var recipesRouter = require('./routes/recipes');*/}
+var recipesRouter = require('./routes/recipes');
 
 var app = express();
 
@@ -36,7 +36,7 @@ app.use('/frigo', frigoRouter);
 app.use('/congelo', congeloRouter);
 app.use('/placard', placardRouter);
 app.use('/quickconso', quickconsoRouter);
-{/*app.use('/recipes', recipesRouter);*/}
+app.use('/recipes', recipesRouter);
 
 
 module.exports = app;
