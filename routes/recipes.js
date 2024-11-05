@@ -1,4 +1,4 @@
-/*var express = require('express');
+var express = require('express');
 var router = express.Router();
 const Recipe = require('../models/recipes');
 const fetch = require('node-fetch'); 
@@ -68,4 +68,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
-*/
