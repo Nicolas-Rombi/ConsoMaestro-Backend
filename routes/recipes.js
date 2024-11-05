@@ -6,15 +6,17 @@ require('dotenv').config();
 
 
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
-
-router.get('/', async (req, res) => {
+router.get('/spoonacular', async (req, res) => {
     const apiKey = process.env.SPOONACULAR_API_KEY;
-    const number = 4; // Valeur fixe pour le nombre de recettes
+    const number = 5; 
   
     fetch(`https://api.spoonacular.com/recipes/random?number=${number}&apiKey=${apiKey}`)
-      .then(response => {
+      .then(async response => {
         if (!response.ok) {
-          return response.json().then(errorData => {
+          // Vérifie si la réponse est en JSON ou non
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
             console.error('Erreur API Spoonacular:', errorData);
   
             if (response.status === 401) {
@@ -24,9 +26,16 @@ router.get('/', async (req, res) => {
             } else {
               res.status(response.status).json({ error: 'Erreur lors de la récupération des recettes depuis Spoonacular.' });
             }
-          });
+          } else {
+            // Si la réponse n'est pas en JSON, renvoie le texte brut de l'erreur
+            const errorText = await response.text();
+            console.error('Erreur API Spoonacular (non-JSON):', errorText);
+            res.status(response.status).json({ error: errorText });
+          }
         } else {
-          return response.json().then(data => res.status(200).json(data));
+          // Si la réponse est correcte, renvoie les données JSON
+          const data = await response.json();
+          res.status(200).json(data);
         }
       })
       .catch(error => {
@@ -66,5 +75,4 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la suppression de la recette mise en favori' });
   }
 });
-
 module.exports = router;
