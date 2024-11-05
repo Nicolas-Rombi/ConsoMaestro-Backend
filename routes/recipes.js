@@ -35,6 +35,7 @@ router.get('/spoonacular', (req, res) => {
   });
 
 // Route pour sauvegarder une recette en favori
+{/* 
 router.post('/', async (req, res) => {
   const { userId, title, image, description, product } = req.body;
 
@@ -52,7 +53,7 @@ router.post('/', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Erreur lors de la sauvegarde de la recette mise en favori' });
   }
-});
+}); */}
 
 // Route pour supprimer une recette mise en favori
 router.delete('/:id', async (req, res) => {
