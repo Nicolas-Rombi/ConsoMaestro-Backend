@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Recipe = require('../models/recipes');
-
+require('dotenv').config();
 
 
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
