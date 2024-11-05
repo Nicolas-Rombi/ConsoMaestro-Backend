@@ -29,7 +29,7 @@ router.post('/signup', (req, res) => {
       });
 
       newUser.save().then(newDoc => {
-        res.json({ result: true, token: newDoc.token, message: 'Votre compte a bien été créé !' });
+        res.json({ result: true, token: newDoc.token, userId: newDoc._id, username: newDoc.username, message: 'Votre compte a bien été créé !' });
       });
     } else {
       // User already exists in database

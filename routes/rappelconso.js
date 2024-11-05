@@ -53,18 +53,19 @@ router.get('/fetch-recalls', (req, res) => {
 router.get('/check-recall/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
+        console.log("Vérification des rappels pour l'utilisateur avec ID :", userId);
 
         // Récupérer tous les produits de l'utilisateur
         const userProducts = await Product.find({ user: userId });
+        console.log("Produits de l'utilisateur :", userProducts);
 
-         // Vérifier si userProducts est un tableau
-    if (!Array.isArray(userProducts)) {
-        console.error("userProducts n'est pas un tableau", userProducts);
-        return res.status(500).json({ result: false, message: 'Erreur lors de la récupération des produits.' });
-    }
+        // Vérifier si userProducts est un tableau
+        if (!Array.isArray(userProducts)) {
+            console.error("userProducts n'est pas un tableau", userProducts);
+            return res.status(500).json({ result: false, message: 'Erreur lors de la récupération des produits.' });
+        }
 
         // Extraire les codes-barres des produits de l'utilisateur
-
         const userUPCs = userProducts.map(product => {
             if (!product.upc) {
                 console.warn("Produit sans UPC trouvé :", product);
@@ -73,8 +74,11 @@ router.get('/check-recall/:userId', async (req, res) => {
             return product.upc;
         }).filter(upc => upc !== null); // Filtrer les valeurs nulles si nécessaire
 
+        console.log("Codes-barres des produits de l'utilisateur :", userUPCs);
+
         // Rechercher les rappels dont les codes-barres correspondent aux produits de l'utilisateur
         const recalls = await RappelConso.find({ upc: { $in: userUPCs } });
+        console.log("Rappels trouvés :", recalls);
 
         if (recalls.length > 0) {
             res.json({
@@ -90,5 +94,4 @@ router.get('/check-recall/:userId', async (req, res) => {
         res.status(500).json({ result: false, message: 'Erreur serveur lors de la vérification des rappels.' });
     }
 });
-
 module.exports = router;
