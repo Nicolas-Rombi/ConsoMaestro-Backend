@@ -3,7 +3,7 @@ const router = express.Router();
 const RappelConso = require('../models/rappelconso'); 
 const Product = require('../models/products'); 
 
-// Route pour récupérer et enregistrer les rappels
+// Route pour récupérer et enregistrer les rappels.
 router.get('/fetch-recalls', (req, res) => {
     const apiUrl = `https://data.economie.gouv.fr/api/v2/catalog/datasets/rappelconso0/records?where=categorie_de_produit="Alimentation"&limit=100`;
 
