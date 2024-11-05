@@ -1,10 +1,10 @@
-var express = require('express');
+/*var express = require('express');
 var router = express.Router();
 const Recipe = require('../models/recipes');
 const fetch = require('node-fetch'); 
 require('dotenv').config();
 
-/*
+
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
 router.get('/spoonacular', (req, res) => {
     const { number = 5 } = req.query;
@@ -66,5 +66,6 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la suppression de la recette mise en favori' });
   }
 });
-*/
+
 module.exports = router;
+*/
