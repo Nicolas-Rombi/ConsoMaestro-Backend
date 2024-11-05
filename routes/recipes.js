@@ -5,9 +5,9 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 
-// Nouvelle route pour récupérer des recettes depuis Spoonacular
+// Nouvelle route pour récupérer des recettes depuis Spoonacular.
 router.get('/spoonacular', async (req, res) => {
-    const  number = 4 ;
+    const { number = 4 } = req.query;
     const apiKey = process.env.SPOONACULAR_API_KEY;
   
     try {
