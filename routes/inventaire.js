@@ -12,8 +12,8 @@ router.get('/:userId/:inventaire', async (req, res) => {
         inventaireTarger = "Frigo";
     } else if (inventaire === "congelo") {
         inventaireTarger = "Congelo";
-    } else if (inventaire === "placards") {
-        inventaireTarger = "Placards";
+    } else if (inventaire === "placard") {
+        inventaireTarger = "Placard";
     };
 
     try {
