@@ -97,4 +97,18 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.get('/favorites/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Rechercher les recettes favorites où l'utilisateur est dans la liste des utilisateurs associés
+    const favoriteRecipes = await Recipe.find({ users: userId }); // Modifiez `users` selon la structure du modèle
+
+    res.status(200).json({ favorites: favoriteRecipes });
+  } catch (error) {
+    console.error("Erreur lors de la récupération des recettes favorites :", error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des recettes favorites' });
+  }
+});
+
 module.exports = router;
