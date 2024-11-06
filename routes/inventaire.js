@@ -7,18 +7,11 @@ const Product = require('../models/products');
 router.get('/:userId/:inventaire', async (req, res) => {
     const userId = req.params.userId; // Récupération de l'ID utilisateur depuis les paramètres
     const inventaire = req.params.inventaire; // Récupération de l'inventaire depuis les paramètres
-    let inventaireTarger;
-    if (inventaire === "frigo") {
-        inventaireTarger = "Frigo";
-    } else if (inventaire === "congelo") {
-        inventaireTarger = "Congelo";
-    } else if (inventaire === "placard") {
-        inventaireTarger = "Placard";
-    };
+    let inventaireTarget = inventaire.charAt(0).toUpperCase() + inventaire.slice(1); // Mettre la première lettre en majuscule
 
     try {
         // Recherche des produits dans la base de données pour un utilisateur et un lieu de stockage "Frigo"
-        const products = await Product.find({ user: userId, storagePlace: inventaireTarger});
+        const products = await Product.find({ user: userId, storagePlace: inventaireTarget});
         
         // Vérification de la présence des produits trouvés
         if (products) {
