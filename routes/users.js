@@ -5,11 +5,17 @@ const { checkBody } = require('../modules/checkBody');
 const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
 const authMiddleware = require('../middleware/authMiddleware');
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Regex format email valide
 
 router.post('/signup', (req, res) => {
   if (!checkBody(req.body, ['email','username', 'password'])) {
     res.json({ result: false, error: 'Champs vides ou manquants' });
     return;
+  }
+
+  // Vérification du format de l'email
+  if (!emailRegex.test(req.body.email)) {
+    return res.json({ result: false, error: 'Email invalide' });
   }
   // Check if the user has not already been registered.
   User.findOne({ username: req.body.username }).then(data => {
