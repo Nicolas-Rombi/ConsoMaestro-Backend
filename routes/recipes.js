@@ -35,11 +35,11 @@ router.get('/spoonacular', (req, res) => {
 
 // Route pour sauvegarder une recette en favori
 router.post('/', async (req, res) => {
-  const { userId, title, image, description, products } = req.body;
+  const { userId, title, image, description, products, recipeId } = req.body;
 
   try {
     // Rechercher si la recette existe déjà dans la base de données
-    let recipe = await Recipe.findOne({ title });
+    let recipe = await Recipe.findOne({ id });
 
     if (recipe) {
       // La recette existe, vérifier si l'utilisateur est déjà dans la liste des favoris
@@ -50,6 +50,7 @@ router.post('/', async (req, res) => {
     } else {
       // La recette n'existe pas, la créer
       recipe = new Recipe({
+        recipeId,
         title,
         image,
         description,
