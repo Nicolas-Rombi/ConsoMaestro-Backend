@@ -9,7 +9,7 @@ router.get('/:userId', async (req, res) => {
     
     try {
         
-        const twoDaysLater  =moment().add(2, 'days').endOf('day').toDate(); // Date de limite de consommation
+        const twoDaysLater  =moment().add(3, 'days').endOf('day').toDate(); // Date de limite de consommation
         
         const products = await Product.find({ user: userId,  dlc: { $lte: twoDaysLater } }); // Rechercher les produits liés à l'utilisateur
         if (products) {
