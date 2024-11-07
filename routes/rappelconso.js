@@ -81,7 +81,7 @@ router.get('/check-recall/:userId', async (req, res) => {
         console.log("Rappels trouvés :", recalls);
 
         if (recalls.length > 0) {
-            console.log(recalls)
+            console.log("recall", recalls)
             res.json({
                 result: true,
                 message: 'Produits rappelés trouvés dans votre stockage.',
