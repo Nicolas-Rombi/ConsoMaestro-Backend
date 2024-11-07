@@ -10,21 +10,20 @@ router.get('/spoonacular', (req, res) => {
     const apiKey = process.env.SPOONACULAR_API_KEY;
   
     fetch(`https://api.spoonacular.com/recipes/random?number=${number}&apiKey=${apiKey}`)
-      .then(response => {
+      .then(async response => {
         if (!response.ok) {
-          return response.json().then(errorData => {
-            console.error('Erreur API Spoonacular:', errorData);
-  
-            if (response.status === 401) {
-              res.status(401).json({ error: 'Clé API Spoonacular invalide ou manquante.' });
-            } else if (response.status === 402) {
-              res.status(402).json({ error: 'Limite de requêtes atteinte pour l\'API Spoonacular.' });
-            } else {
-              res.status(response.status).json({ error: 'Erreur lors de la récupération des recettes depuis Spoonacular.' });
-            }
-          });
+          const errorData = await response.json();
+          console.error('Erreur API Spoonacular:', errorData);
+          if (response.status === 401) {
+            res.status(401).json({ error: 'Clé API Spoonacular invalide ou manquante.' });
+          } else if (response.status === 402) {
+            res.status(402).json({ error: 'Limite de requêtes atteinte pour l\'API Spoonacular.' });
+          } else {
+            res.status(response.status).json({ error: 'Erreur lors de la récupération des recettes depuis Spoonacular.' });
+          }
         } else {
-          return response.json().then(data => res.status(200).json(data));
+          const data = await response.json();
+          return res.status(200).json(data);
         }
       })
       .catch(error => {
@@ -40,8 +39,10 @@ router.post('/', async (req, res) => {
   try {
     // Rechercher si la recette existe déjà dans la base de données
     let recipe = await Recipe.findOne({ recipeId });
-
+    console.log(recipe);
+    
     if (recipe) {
+      
       // La recette existe, vérifier si l'utilisateur est déjà dans la liste des favoris
       if (!recipe.users.includes(userId)) {
         recipe.users.push(userId); // Ajouter l'utilisateur
