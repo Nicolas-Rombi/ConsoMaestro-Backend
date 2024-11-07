@@ -5,7 +5,7 @@ const Product = require('../models/products');
 
 // Route pour récupérer et enregistrer les rappels.
 router.get('/fetch-recalls', (req, res) => {
-    const apiUrl = `https://data.economie.gouv.fr/api/v2/catalog/datasets/rappelconso0/records?where=categorie_de_produit="Alimentation"&limit=100`;
+    const apiUrl = `https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso0/records?limit=100&refine=categorie_de_produit%3A%22Alimentation%22`;
 
     fetch(apiUrl)
         .then(response => response.json())
