@@ -69,24 +69,24 @@ router.post('/', async (req, res) => {
 });
 
 // Route pour supprimer une recette mise en favori
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
+router.delete('/:recipeId', async (req, res) => {
+  const { recipeId } = req.params;
   const { userId } = req.body;
 
   try {
     // Trouver la recette par son ID
-    const recipe = await Recipe.findById(id);
+    const recipe = await Recipe.findOne(recipeId);
 
     if (!recipe) {
       return res.status(404).json({ error: 'Recette non trouvée' });
     }
 
     // Retirer l'utilisateur de la liste des favoris
-    recipe.users = recipe.users.filter(user => user !== userId);
+    recipe.users = recipe.users.filter(user => user.toString() !== userId);
 
     if (recipe.users.length === 0) {
       // Si aucun utilisateur ne l'a en favori, supprimer la recette
-      await Recipe.findByIdAndDelete(id);
+      await Recipe.deleteOne(recipeId);
       res.status(200).json({ message: 'Recette supprimée de la base de données car plus aucun utilisateur ne l\'a en favori' });
     } else {
       // Sinon, juste mettre à jour la liste des utilisateurs
