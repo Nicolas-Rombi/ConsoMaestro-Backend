@@ -81,12 +81,13 @@ router.delete('/:recipeId', async (req, res) => {
     if (!recipe) {
       return res.status(404).json({ error: 'Recette non trouvée' });
     }
-
+    else {
     // Retirer l'utilisateur de la liste des favoris
     recipe.users = recipe.users.filter(user => user.toString() !== userId);
 
     await recipe.save();
-    
+    res.status(200).json({ message: 'Recette retirée des favoris avec succès' });
+    }
   } catch (error) {
     console.error('Erreur lors de la suppression de la recette mise en favori:', error);
     res.status(500).json({ error: 'Erreur lors de la suppression de la recette mise en favori' });
