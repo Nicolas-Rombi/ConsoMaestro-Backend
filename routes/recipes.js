@@ -76,7 +76,7 @@ router.delete('/:recipeId', async (req, res) => {
   try {
     // Trouver la recette par son ID
     const recipe = await Recipe.findOne({recipeId});
-    console.log(recipe);
+    console.log("recipe", recipe);
 
     if (!recipe) {
       return res.status(404).json({ error: 'Recette non trouvée' });
