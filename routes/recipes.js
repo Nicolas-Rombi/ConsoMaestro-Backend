@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 
   try {
     // Rechercher si la recette existe déjà dans la base de données
-    let recipe = await Recipe.findOne({ id });
+    let recipe = await Recipe.findOne({ recipeId });
 
     if (recipe) {
       // La recette existe, vérifier si l'utilisateur est déjà dans la liste des favoris
