@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // Nouvelle route pour récupérer des recettes depuis Spoonacular
 router.get('/spoonacular', (req, res) => {
-    const { number = 5 } = req.query;
+    const { number = 1 } = req.query;
     const apiKey = process.env.SPOONACULAR_API_KEY;
   
     fetch(`https://api.spoonacular.com/recipes/random?number=${number}&apiKey=${apiKey}`)
