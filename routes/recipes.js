@@ -11,6 +11,10 @@ router.get('/spoonacular', (req, res) => {
   
     fetch(`https://api.spoonacular.com/recipes/random?number=${number}&apiKey=${apiKey}`)
       .then(async response => {
+        if (!apiKey) {
+          console.error('SPOONACULAR_API_KEY is not defined');
+          return res.status(500).json({ error: 'Internal server error: API key not configured.' });
+      }
         if (!response.ok) {
           const errorData = await response.json();
           console.error('Erreur API Spoonacular:', errorData);
